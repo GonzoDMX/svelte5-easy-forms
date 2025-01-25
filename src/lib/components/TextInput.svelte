@@ -1,8 +1,8 @@
 <!-- src/lib/forms/components/TextInput.svelte -->
 <script lang="ts">
-    import type { TextInputProps, TextInputType } from '../types';
-    import FormField from './FormField.svelte';
-    import { getLocale, getCountryData, standardizeCountry } from '../utils/country';
+    import type { TextInputProps, TextInputType } from '$lib/types.js';
+    import FormField from '$lib/components/FormField.svelte';
+    import { getLocale, getCountryData, standardizeCountry } from '$lib/utils/country.js';
 
     let { 
         name,
@@ -74,7 +74,7 @@
 
         // Show autocomplete only after two characters
         if (input.length >= 2) {
-            countryOptions = allCountryOptions.filter(({ name }) =>
+            countryOptions = allCountryOptions.filter(({ name }: { name: string }) =>
             name.toLowerCase().startsWith(input.toLowerCase())
             );
         } else {

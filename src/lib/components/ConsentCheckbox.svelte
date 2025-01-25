@@ -1,6 +1,6 @@
 <!-- src/lib/forms/components/ConsentCheckbox.svelte -->
 <script lang="ts">
-    import type { ConsentCheckProps } from '../types';
+    import type { ConsentCheckProps } from '$lib/types.js';
 
     let {
         required = true,

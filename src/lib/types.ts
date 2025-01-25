@@ -1,5 +1,5 @@
 // src/lib/forms/types.ts
-import type { AutocompleteType } from './autocomplete-types'
+import type { AutocompleteType } from '$lib/autocomplete-types.js'
 export type FormStyle = 'default' | 'compact' | 'bordered';
 
 export type FormProps = {
