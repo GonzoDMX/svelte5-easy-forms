@@ -1,7 +1,7 @@
 // src/stories/TextInput.stories.ts
 import type { Meta, StoryObj } from '@storybook/svelte';
 import type { SvelteComponent } from 'svelte';
-import TextInput from '$lib/forms/components/TextInput.svelte';
+import TextInput from '$lib/components/TextInput.svelte';
 
 const meta = {
   title: 'Forms/TextInput',

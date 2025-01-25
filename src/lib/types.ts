@@ -12,8 +12,6 @@ export type FormProps = {
     children: () => any;
 };
 
-export type Width = 'full' | 'half';
-
 export interface FormFieldProps {
     name: string;
     label: string;
@@ -22,44 +20,30 @@ export interface FormFieldProps {
     children: () => any; // Function that returns child content
 }
 
-export type TextInputType = 'text' | 'email' | 'url' | 'tel' | 'country' | 'password';
-
-export type TextInputErrorMessages = {
+export type InputErrorMessages = {
     required?: string;
     invalid?: string;
-    type?: Record<Exclude<TextInputType, 'text'>, string>;
 };
 
-export type TextInputProps = {
+export type InputProps = {
     name: string;
-    type: TextInputType;
     label: string;
     placeholder?: string;
     value?: string;
-    autocomplete?: AutocompleteType;
     validator?: RegExp;
-    error_messages?: TextInputErrorMessages;
+    error_messages?: InputErrorMessages;
     required?: boolean;
 };
 
-export type TextAreaErrorMessages = {
-    invalid?: string;
-    required?: string;
+export type TextInputProps = InputProps & {
+    autocomplete?: AutocompleteType;
 };
 
-export type TextAreaProps = {
-    name: string;
-    label: string;
-    placeholder?: string;
-    value?: string;
-    autocomplete?: AutocompleteType;
-    validator?: RegExp;
-    error_messages?: TextAreaErrorMessages;
+export type TextAreaProps =  TextInputProps & {
     min_height?: number;
     height?: number;
     max_height?: number;
     resize?: boolean;
-    required?: boolean;
 };
 
 export type NumberInputErrorMessages = {

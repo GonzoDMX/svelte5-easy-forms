@@ -1,6 +1,6 @@
-<!-- src/lib/components/TextInput.svelte -->
+<!-- src/lib/components/EmailInput.svelte -->
 <script lang="ts">
-    import type { TextInputProps } from '$lib/types.js';
+    import type { InputProps } from '$lib/types.js';
     import FormField from '$lib/components/FormField.svelte';
 
     let { 
@@ -8,24 +8,32 @@
         label,
         placeholder = '',
         value = $bindable(''),
-        autocomplete = 'off',
         validator,
         error_messages = {
             required: 'This field is required',
-            invalid: 'Invalid input',
+            invalid: 'Invalid input'
         },
         required = false
-    } : TextInputProps = $props();
+    } : InputProps = $props();
 
     let error = $state('');
+    
+    // Built-in validators for special types
+    const builtin_validator: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     function validate(value: string): void {
         if (required && !value.trim()) {
             error = error_messages.required || 'Error';
             return;
         }
-        if (validator && !validator.test(value)) {
-            error = error_messages.invalid || 'Invalid';
+        if (validator) {
+            if (!validator.test(value)) {
+                error = error_messages.invalid || 'Invalid';
+                return;
+            }
+        }
+        else if (!builtin_validator.test(value)) {
+            error = 'Please enter a valid email address';
             return;
         }
         error = '';
@@ -43,9 +51,9 @@
     <input
         id={name}
         {name}
-        type='text'
+        type='email'
         {placeholder}
-        {autocomplete}
+        autocomplete='email'
         {required}
         bind:value={value}
         oninput={() => validate(value)}
