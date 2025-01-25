@@ -1,7 +1,7 @@
-<!-- src/lib/forms/components/DropdownSelect.svelte -->
+<!-- src/lib/components/DropdownSelect.svelte -->
 <script lang="ts">
-    import type { DropdownSelectProps } from '../types';
-    import FormField from './FormField.svelte';
+    import type { DropdownSelectProps } from '$lib/types.js';
+    import FormField from '$lib/components/FormField.svelte';
 
     let {
         name,

@@ -1,6 +1,6 @@
-<!-- src/lib/forms/components/Form.svelte -->
+<!-- src/lib/components/Form.svelte -->
 <script lang="ts">
-    import type { FormProps } from '../types';
+    import type { FormProps } from '$lib/types.js';
 
     let {
         title,

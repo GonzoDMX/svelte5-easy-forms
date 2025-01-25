@@ -1,4 +1,4 @@
-<!-- src/lib/forms/components/FormRow.svelte -->
+<!-- src/lib/components/FormRow.svelte -->
 <script lang="ts">
     let { gap = 4, children } = $props<{
         gap?: number;

@@ -1,7 +1,7 @@
-<!-- src/lib/forms/components/DateInput.svelte -->
+<!-- src/lib/components/DateInput.svelte -->
 <script lang="ts">
-    import type { DateInputProps } from '../types';
-    import FormField from './FormField.svelte';
+    import type { DateInputProps } from '$lib/types.js';
+    import FormField from '$lib/components/FormField.svelte';
 
     let {
         name,

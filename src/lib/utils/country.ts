@@ -2,8 +2,8 @@
 import { get } from 'svelte/store';
 import { locale } from 'svelte-i18n';
 import countries from 'i18n-iso-countries';
-import en from 'i18n-iso-countries/langs/en.json';
-import fr from 'i18n-iso-countries/langs/fr.json';
+import en from 'i18n-iso-countries/langs/en.json' assert { type: 'json' };
+import fr from 'i18n-iso-countries/langs/fr.json' assert { type: 'json' };
 
 export function getLocale(): string {
     return get(locale) || 'en';

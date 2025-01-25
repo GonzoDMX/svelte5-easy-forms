@@ -1,4 +1,4 @@
-// src/lib/forms/index.ts
+// src/lib/index.ts
 export { default as Form } from '$lib/components/Form.svelte';
 export { default as FormRow } from '$lib/components/FormRow.svelte';
 export { default as TextInput } from '$lib/components/TextInput.svelte';

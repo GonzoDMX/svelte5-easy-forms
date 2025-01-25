@@ -1,4 +1,4 @@
-<!-- src/lib/forms/components/ConsentCheckbox.svelte -->
+<!-- src/lib/components/ConsentCheckbox.svelte -->
 <script lang="ts">
     import type { ConsentCheckProps } from '$lib/types.js';
 

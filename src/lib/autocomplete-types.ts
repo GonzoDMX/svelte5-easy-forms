@@ -1,4 +1,4 @@
-// src/lib/forms/autocomplete-types.ts
+// src/lib/autocomplete-types.ts
 export type AutocompleteType =
     | 'off'
     | 'on'

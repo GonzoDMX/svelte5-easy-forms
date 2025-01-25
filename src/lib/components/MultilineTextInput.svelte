@@ -1,7 +1,7 @@
-<!-- src/lib/forms/components/MultilineTextInput.svelte -->
+<!-- src/lib/components/MultilineTextInput.svelte -->
 <script lang="ts">
-    import type { TextAreaProps } from '../types';
-    import FormField from './FormField.svelte';
+    import type { TextAreaProps } from '$lib/types.js';
+    import FormField from '$lib/components/FormField.svelte';
 
     let {
         name,

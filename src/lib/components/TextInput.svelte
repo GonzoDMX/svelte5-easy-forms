@@ -1,4 +1,4 @@
-<!-- src/lib/forms/components/TextInput.svelte -->
+<!-- src/lib/components/TextInput.svelte -->
 <script lang="ts">
     import type { TextInputProps, TextInputType } from '$lib/types.js';
     import FormField from '$lib/components/FormField.svelte';

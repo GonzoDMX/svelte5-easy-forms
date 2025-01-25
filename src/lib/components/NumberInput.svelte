@@ -1,7 +1,7 @@
-<!-- src/lib/forms/components/NumberInput.svelte -->
+<!-- src/lib/components/NumberInput.svelte -->
 <script lang="ts">
-    import type { NumberInputProps } from '../types';
-    import FormField from './FormField.svelte';
+    import type { NumberInputProps } from '$lib/types.js';
+    import FormField from '$lib/components/FormField.svelte';
 
     let {
         name,

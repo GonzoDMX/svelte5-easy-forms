@@ -1,4 +1,4 @@
-<!-- src/lib/forms/components/CheckboxGroup.svelte -->
+<!-- src/lib/components/CheckboxGroup.svelte -->
 <script lang="ts">
     import type { CheckboxGroupProps } from '$lib/types.js';
 
