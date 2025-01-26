@@ -1,6 +1,6 @@
 <!-- src/lib/components/FormField.svelte -->
 <script lang="ts">
-    import type { FormFieldProps, Width } from '$lib/types.js';
+    import type { FormFieldProps } from '$lib/types.js';
 
     let {
         name,

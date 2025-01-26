@@ -6,16 +6,16 @@
     let {
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         options,
         value = $bindable(''),
-        required = false,
-        placeholder = 'Select an option',
-        error_messages = {
-            required: 'Please select an option'
-        }
+        selected_value, // TODO implement this, if defined it overrdes placeholder
+        placeholder,
     } : DropdownSelectProps = $props();
 
-    let error = $derived(required && !value ? error_messages.required : '');
+    let error = $derived(required && !value ? error_msg : '');
 </script>
 
 <FormField {name} {label} {error}>
@@ -27,9 +27,15 @@
         class="block w-full rounded-md border-gray-300 shadow-sm
                focus:border-indigo-500 focus:ring-indigo-500"
     >
+    {#if placeholder && !selected_value}
         <option value="" disabled selected hidden>{placeholder}</option>
-        {#each options as option}
+    {/if}
+    {#each options as option}
+        {#if selected_value === option}
+            <option value={option} selected>{option}</option>
+        {:else}
             <option value={option}>{option}</option>
-        {/each}
+        {/if}
+    {/each}
     </select>
 </FormField>

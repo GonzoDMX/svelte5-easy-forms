@@ -3,8 +3,11 @@
     import type { ConsentCheckProps } from '$lib/types.js';
 
     let {
-        required = true,
         name,
+        label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         text,
         checked = $bindable(false),
     } : ConsentCheckProps = $props();

@@ -5,16 +5,15 @@
     let {
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         options,
         group = $bindable([]),
-        required = false,
         columns = 2,
-        error_messages = {
-            required: 'Please select at least one option'
-        }
     } : CheckboxGroupProps = $props();
 
-    let error = $derived(required && group.length === 0 ? error_messages.required : '');
+    let error = $derived(required && group.length === 0 ? error_msg : '');
 
     const columnClasses = {
         2: 'grid-cols-2',
@@ -39,11 +38,15 @@
                     autocomplete="off"
                     class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
-                <span class="text-sm text-gray-700">{option}</span>
+                <span class="text-sm text-gray-700">
+                    {option}
+                </span>
             </label>
         {/each}
     </div>
     {#if error}
-        <p class="mt-1 text-sm text-red-600">{error}</p>
+        <p class="mt-1 text-sm text-red-600">
+            {error}
+        </p>
     {/if}
 </fieldset>

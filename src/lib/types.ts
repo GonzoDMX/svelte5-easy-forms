@@ -17,121 +17,92 @@ export interface FormFieldProps {
     label: string;
     required?: boolean;
     error?: string;
-    children: () => any; // Function that returns child content
+    children: () => any;
 }
 
-export type InputErrorMessages = {
-    required?: string;
-    invalid?: string;
-};
+type BaseProps = {
+    name: string;           // Unique identifier
+    label: string;          // Displayed label text
+    required?: boolean;     // Is this field required to submit form?
+    error_msg?: string;     // Error message to display
+    invalid_msg?: string;   // Invalid value message to display
+}
 
-export type InputProps = {
-    name: string;
-    label: string;
-    placeholder?: string;
-    value?: string;
-    validator?: RegExp;
-    error_messages?: InputErrorMessages;
-    required?: boolean;
+// Text Input Types ---------------- //
+export type InputProps = BaseProps & {
+    placeholder?: string;   // Placeholder text
+    value?: string;         // Bindable value
+    validator?: RegExp;     // User definable RegEx to validate input
+                            // Setting this will override default validation
 };
 
 export type TextInputProps = InputProps & {
-    autocomplete?: AutocompleteType;
+    autocomplete?: AutocompleteType;    // HTML autocomplete attribute
 };
 
-export type TextAreaProps =  TextInputProps & {
-    min_height?: number;
-    height?: number;
-    max_height?: number;
-    resize?: boolean;
+// TODO Simplify height parameters
+export type TextAreaProps =  InputProps & {
+    autocomplete?: 'off' | 'on';    // Enable or disable autocomplete
+    min_height?: number;            // Minimum height of textarea
+    height?: number;                // Default height of textarea
+    max_height?: number;            // Maximum height of textarea
+    resize?: boolean;               // Allow resizing of textarea
+};
+// ---------------------------- //
+
+
+// Number Input Types ---------------- //
+export type NumberInputProps = BaseProps & {
+    prefix?: string;        // Add a prefix symbol (e.g. $, £, €)
+    suffix?: string;        // Add a suffix symbol (e.g. %)
+    precision?: number;     // Number of decimal places
+    steps?: number;         // Incremental steps
+    value?: number | null;  // Bindable value
+    max?: number;           // Maximum value permitted
+    min?: number;           // Minimum value permitted
+};
+// ---------------------------- //
+
+
+// Date Input Types ---------------- //
+export type BaseDateProps = BaseProps & {
+    min_date?: Date;        // Minimum (Earliest) date permitted
+    max_date?: Date;        // Maximum (Latest) date permitted
 };
 
-export type NumberInputErrorMessages = {
-    required?: string;
-    min?: string;
-    max?: string;
-    invalid?: string;
-};
-
-export type NumberInputProps = {
-    name: string;
-    label: string;
-    prefix?: string;
-    suffix?: string;
-    decimal_places?: number;
-    steps?: number;
-    bind_value: number | null;
-    value?: number;
-    max?: number;
-    min?: number;
-    required?: boolean;
-    error_messages?: NumberInputErrorMessages;
-};
-
-export type ConsentCheckProps = {
-    required?: boolean;
-    name: string;
-    text: string;
-    checked: boolean;
-};
-
-export type DateRangeErrorMessages = {
-    required?: string;
-    min_date?: string;
-    max_date?: string;
-    invalid_range?: string;
-};
-
-export type DateRangeProps = {
-    name: string;
-    label: string;
+export type DateRangeProps = BaseDateProps & {
     bind_start_date: Date | null;
     bind_end_date: Date | null;
     start_value?: Date;
     end_value?: Date;
-    min_date?: Date;
-    max_date?: Date;
-    required?: boolean;
-    error_messages?: DateRangeErrorMessages;
 };
 
-export type DateInputErrorMessages = {
-    required?: string;
-    min_date?: string;
-    max_date?: string;
+export type DateInputProps = BaseDateProps & {
+    value?: Date | null;        // Bindable Date value
+};
+// ---------------------------- //
+
+
+// Checkbox Input Types ---------------- //
+export type ConsentCheckProps = BaseProps & {
+    text: string;           // Displayed text
+    checked: boolean;       // Bindable 'checked' boolean value
 };
 
-export type DateInputProps = {
-    name: string;
-    label: string;
-    bind_value: Date | null;
-    value?: Date;
-    min_date?: Date;
-    max_date?: Date;
-    required?: boolean;
-    error_messages?: DateInputErrorMessages;
+export type CheckboxGroupProps = BaseProps & {
+    options: string[];      // Array of user-defined checkbox options
+    group: string[];        // Bindable array, gets populated with checked options
+    columns?: 2 | 3 | 4;    // Number of columns to display, TODO maybe automate this
 };
+// ---------------------------- //
 
-export type CheckboxGroupProps = {
-    name: string;
-    label: string;
-    options: string[];
-    group: string[];
-    required?: boolean;
-    columns?: 2 | 3 | 4;
-    error_messages?: {
-        required?: string;
-    };
-};
 
-export type DropdownSelectProps = {
-    name: string;
-    label: string;
-    options: string[];
-    value: string;
-    required?: boolean;
-    placeholder?: string;
-    error_messages?: {
-        required?: string;
-    };
+// Dropdown Input Types ---------------- //
+export type DropdownSelectProps = BaseProps & {
+    options: string[];       // Array of user-defined dropdown options
+    value: string;           // Bindable value
+    selected_value?: string; // Default selected value
+                             // If 'selected_value' is provided it overrides placeholder 
+    placeholder?: string;    // Placeholder text
 };
+// ---------------------------- //

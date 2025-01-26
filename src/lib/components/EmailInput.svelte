@@ -6,34 +6,23 @@
     let { 
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         placeholder = '',
         value = $bindable(''),
-        validator,
-        error_messages = {
-            required: 'This field is required',
-            invalid: 'Invalid input'
-        },
-        required = false
+        validator =/^[^\s@]+@[^\s@]+\.[^\s@]+$/
     } : InputProps = $props();
 
     let error = $state('');
     
-    // Built-in validators for special types
-    const builtin_validator: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
     function validate(value: string): void {
         if (required && !value.trim()) {
-            error = error_messages.required || 'Error';
+            error = error_msg;
             return;
         }
-        if (validator) {
-            if (!validator.test(value)) {
-                error = error_messages.invalid || 'Invalid';
-                return;
-            }
-        }
-        else if (!builtin_validator.test(value)) {
-            error = 'Please enter a valid email address';
+        if (validator && !validator.test(value)) {
+            error = invalid_msg;
             return;
         }
         error = '';

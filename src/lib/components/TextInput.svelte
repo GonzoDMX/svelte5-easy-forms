@@ -6,26 +6,24 @@
     let { 
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         placeholder = '',
         value = $bindable(''),
-        autocomplete = 'off',
         validator,
-        error_messages = {
-            required: 'This field is required',
-            invalid: 'Invalid input',
-        },
-        required = false
+        autocomplete = 'off'
     } : TextInputProps = $props();
 
     let error = $state('');
 
     function validate(value: string): void {
         if (required && !value.trim()) {
-            error = error_messages.required || 'Error';
+            error = error_msg;
             return;
         }
         if (validator && !validator.test(value)) {
-            error = error_messages.invalid || 'Invalid';
+            error = invalid_msg;
             return;
         }
         error = '';

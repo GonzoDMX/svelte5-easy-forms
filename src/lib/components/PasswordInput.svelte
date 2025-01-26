@@ -5,35 +5,25 @@
 
     let { 
         name,
-        label = 'Password',
+        label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid password',
         placeholder = '',
         value = $bindable(''),
-        validator,
-        error_messages = {
-            required: 'This field is required',
-            invalid: 'Invalid input'
-        },
-        required = false
+        // At least 12 characters, 1 uppercase, 1 lowercase, 1 number, 1 non-alphanumeric symbol
+        validator = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{12,}$/
     } : InputProps = $props();
 
     let error = $state('');
     
-    // At least 12 characters, 1 uppercase, 1 lowercase, 1 number, 1 non-alphanumeric symbol
-    const builtin_validator: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{12,}$/
-
     function validate(value: string): void {
         if (required && !value.trim()) {
-            error = error_messages.required || 'Error';
+            error = error_msg;
             return;
         }
-        if (validator) {
-            if (!validator.test(value)) {
-                error = error_messages.invalid || 'Invalid';
-                return;
-            }
-        }
-        else if (!builtin_validator.test(value)) {
-            error = 'Please enter a valid password';
+        if (validator && !validator.test(value)) {
+            error = invalid_msg;
             return;
         }
         error = '';

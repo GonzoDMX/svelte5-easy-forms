@@ -6,34 +6,23 @@
     let { 
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         placeholder = '',
         value = $bindable(''),
-        validator,
-        error_messages = {
-            required: 'This field is required',
-            invalid: 'Invalid input'
-        },
-        required = false
+        validator = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/
     } : InputProps = $props();
 
     let error = $state('');
-    
-    // Built-in validators for special types
-    const builtin_validator: RegExp = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/
 
     function validate(value: string): void {
         if (required && !value.trim()) {
-            error = error_messages.required || 'Error';
+            error = error_msg;
             return;
         }
-        if (validator) {
-            if (!validator.test(value)) {
-                error = error_messages.invalid || 'Invalid';
-                return;
-            }
-        }
-        else if (!builtin_validator.test(value)) {
-            error = 'Please enter a valid telephone number';
+        if (validator && !validator.test(value)) {
+            error = invalid_msg;
             return;
         }
         error = '';

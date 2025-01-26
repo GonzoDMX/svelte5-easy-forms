@@ -7,14 +7,12 @@
     let { 
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         placeholder = '',
         value = $bindable(''),
-        validator,
-        error_messages = {
-            required: 'This field is required',
-            invalid: 'Invalid input',
-        },
-        required = false
+        validator = /^[a-zA-Z\s]+$/
     } : InputProps = $props();
 
     let userLanguage = getLocale();
@@ -22,22 +20,13 @@
     let allCountryOptions = getCountryData(userLanguage); 
     let error = $state('');
     
-    // Built-in validator
-    const builtin_validator: RegExp = /^[a-zA-Z\s]+$/;
-
     function validate(value: string): void {
         if (required && !value.trim()) {
-            error = error_messages.required || 'Error';
+            error = error_msg;
             return;
         }
-        if (validator) {
-            if (!validator.test(value)) {
-                error = error_messages.invalid || 'Invalid';
-                return;
-            }
-        }
-        else if (!builtin_validator.test(value)) {
-            error = 'Please enter a valid country name';
+        if (validator && !validator.test(value)) {
+            error = invalid_msg;
             return;
         }
         error = '';

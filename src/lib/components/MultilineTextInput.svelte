@@ -6,19 +6,17 @@
     let {
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         placeholder = '',
         value = $bindable(''),
-        autocomplete = 'off',
         validator,
-        error_messages = {
-            invalid: 'Invalid input',
-            required: 'This field is required'
-        },
+        autocomplete = 'off',
         min_height = 1,
         height = 3,
         max_height = 4,
         resize = false,
-        required = false
     } : TextAreaProps = $props();
 
     let error = $state('');
@@ -26,15 +24,13 @@
 
     function validate(value: string) {
         if (required && !value.trim()) {
-            error = error_messages.required || 'Error';
+            error = error_msg;
             return;
         }
-
         if (validator && !validator.test(value)) {
-            error = error_messages.invalid || 'Invalid';
+            error = invalid_msg;
             return;
         }
-        
         error = '';
     }
 
@@ -44,7 +40,7 @@
         textarea.style.height = 'auto';
         const newHeight = Math.min(
             Math.max(
-                textarea.scrollHeight / 24, // Assuming 24px line height
+                textarea.scrollHeight / 24,
                 min_height
             ),
             max_height

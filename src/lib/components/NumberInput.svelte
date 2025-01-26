@@ -6,57 +6,42 @@
     let {
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         prefix,
         suffix,
-        decimal_places,
+        precision,
         steps = 1,
-        bind_value,
-        value,
+        value = $bindable(null),
         max,
-        min,
-        required = false,
-        error_messages = {
-            required: 'This field is required',
-            min: 'Value is below minimum allowed',
-            max: 'Value is above maximum allowed',
-            invalid: 'Please enter a valid number'
-        }
+        min
     } : NumberInputProps = $props();
 
     let error = $state('');
 
-    // Set initial value if provided
-    $effect(() => {
-        if (value !== undefined && bind_value === null) {
-            bind_value = value;
-        }
-    });
-
     function formatValue(val: number | null): string {
         if (val === null) return '';
-        return decimal_places !== undefined 
-            ? val.toFixed(decimal_places)
+        return precision !== undefined 
+            ? val.toFixed(precision)
             : Math.round(val).toString();
     }
 
     function validateNumber(num: number | null) {
         if (required && (num === null || num === undefined)) {
-            error = error_messages.required || 'Error';
+            error = error_msg;
             return;
         }
-
         if (num !== null) {
             if (min !== undefined && num < min) {
-                error = error_messages.min || 'Error';
+                error = invalid_msg;
                 return;
             }
-
             if (max !== undefined && num > max) {
-                error = error_messages.max || 'Error';
+                error = invalid_msg;
                 return;
             }
         }
-
         error = '';
     }
 
@@ -64,22 +49,21 @@
         const input = (event.target as HTMLInputElement).value;
         
         if (input === '') {
-            bind_value = required ? 0 : null;
+            value = required ? 0 : null;
         } else {
             const num = Number(input);
             if (isNaN(num)) {
-                error = error_messages.invalid || 'Error';
+                error = invalid_msg;
                 return;
             }
-            bind_value = num;
+            value = num;
         }
-        
-        validateNumber(bind_value);
+        validateNumber(value);
     }
 
     // Initial validation
     $effect(() => {
-        validateNumber(bind_value);
+        validateNumber(value);
     });
 </script>
 
@@ -87,14 +71,16 @@
     <div class="relative rounded-md shadow-sm">
         {#if prefix}
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="text-gray-500 sm:text-sm">{prefix}</span>
+                <span class="text-gray-500 sm:text-sm">
+                    {prefix}
+                </span>
             </div>
         {/if}
         <input
             type="number"
             {name}
             {required}
-            value={formatValue(bind_value)}
+            value={formatValue(value)}
             oninput={handleInput}
             step={steps}
             {max}
@@ -105,7 +91,9 @@
         />
         {#if suffix}
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                <span class="text-gray-500 sm:text-sm">{suffix}</span>
+                <span class="text-gray-500 sm:text-sm">
+                    {suffix}
+                </span>
             </div>
         {/if}
     </div>

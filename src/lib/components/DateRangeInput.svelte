@@ -6,19 +6,15 @@
     let {
         name,
         label,
+        required = false,
+        error_msg = 'This field is required',
+        invalid_msg = 'Invalid input',
         bind_start_date,
         bind_end_date,
         start_value,
         end_value,
         min_date,
         max_date,
-        required = false,
-        error_messages = {
-            required: 'Both dates are required',
-            min_date: 'Date is before minimum allowed date',
-            max_date: 'Date is after maximum allowed date',
-            invalid_range: 'End date must be after start date'
-        }
     } : DateRangeProps = $props();
 
     let error = $state('');
@@ -39,22 +35,22 @@
 
     function validateDates() {
         if (required && (!bind_start_date || !bind_end_date)) {
-            error = error_messages.required || 'Error';
+            error = error_msg;
             return;
         }
 
         if (bind_start_date && min_date && bind_start_date < min_date) {
-            error = error_messages.min_date || 'Error';
+            error = invalid_msg;
             return;
         }
 
         if (bind_end_date && max_date && bind_end_date > max_date) {
-            error = error_messages.max_date || 'Error';
+            error = invalid_msg;
             return;
         }
 
         if (bind_start_date && bind_end_date && bind_end_date < bind_start_date) {
-            error = error_messages.invalid_range || 'Error';
+            error = invalid_msg;
             return;
         }
 
